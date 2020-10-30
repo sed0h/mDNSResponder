@@ -1,0 +1,35 @@
+{
+  "Registrations": [
+    {
+      "Component": {
+        "Type": "other",
+        "Other": {
+          "Name": "mDNSResponder",
+          "Version": "765.50.9",
+          "DownloadUrl": "https://opensource.apple.com/tarballs/mDNSResponder/mDNSResponder-765.50.9.tar.gz"
+        }
+      }
+    },
+    {
+      "Component": {
+        "Type": "other",
+        "Other": {
+          "Name": "test",
+          "Version": "0.1",
+          "DownloadUrl": "www.bing.com"
+        }
+      }
+    },
+    {
+      "Component": {
+        "Type": "other",
+        "Other": {
+          "Name": "test1",
+          "Version": "0.2",
+          "DownloadUrl": "www.bing.com"
+        }
+      }
+    }
+  ],
+  "Version": 1
+}

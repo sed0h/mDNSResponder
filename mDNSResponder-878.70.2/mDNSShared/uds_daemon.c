@@ -1971,8 +1971,10 @@ mDNSlocal mStatus handle_regservice_request(request_state *request)
 
     if (!ConstructServiceName(&srv, &request->u.servicereg.name, &request->u.servicereg.type, &d))
     {
-        LogMsg("ERROR: handle_regservice_request - Couldn't ConstructServiceName from, “%#s” “%##s” “%##s”",
-               request->u.servicereg.name.c, request->u.servicereg.type.c, d.c); goto bad_param;
+        /*LogMsg("ERROR: handle_regservice_request - Couldn't ConstructServiceName from, “%#s” “%##s” “%##s”",
+               request->u.servicereg.name.c, request->u.servicereg.type.c, d.c); goto bad_param;*/
+        LogMsg("ERROR: handle_regservice_request - Couldn't ConstructServiceName from, %s %s %s",
+            request->u.servicereg.name.c, request->u.servicereg.type.c, d.c); goto bad_param;
     }
 
     if (!MakeDomainNameFromDNSNameString(&request->u.servicereg.host, host))
@@ -2747,7 +2749,10 @@ mDNSlocal mStatus handle_resolve_request(request_state *request)
     if (!request->msgptr) { LogMsg("%3d: DNSServiceResolve(unreadable parameters)", request->sd); return(mStatus_BadParamErr); }
 
     if (build_domainname_from_strings(&fqdn, name, regtype, domain) < 0)
-    { LogMsg("ERROR: handle_resolve_request bad “%s” “%s” “%s”", name, regtype, domain); return(mStatus_BadParamErr); }
+    /*{ LogMsg("ERROR: handle_resolve_request bad “%s” “%s” “%s”", name, regtype, domain); return(mStatus_BadParamErr); }*/
+    {
+        LogMsg("ERROR: handle_resolve_request bad %s %s %s", name, regtype, domain); return(mStatus_BadParamErr);
+    }
 
     mDNSPlatformMemZero(&request->u.resolve, sizeof(request->u.resolve));
 
@@ -3950,7 +3955,8 @@ mDNSlocal mStatus handle_release_request(request_state *request)
 
     if (build_domainname_from_strings(&instance, name, regtype, domain) < 0)
     {
-        LogMsg("ERROR: handle_release_request bad “%s” “%s” “%s”", name, regtype, domain);
+        /*LogMsg("ERROR: handle_release_request bad “%s” “%s” “%s”", name, regtype, domain);*/
+        LogMsg("ERROR: handle_release_request bad %s %s %s", name, regtype, domain);
         return(mStatus_BadParamErr);
     }
 
@@ -5539,7 +5545,8 @@ mDNSlocal void LogOneAuthRecord(const AuthRecord *ar, mDNSs32 now, const char *c
                       ar->expire ? (ar->expire - now) / mDNSPlatformOneSecond : 0,
                       "-U-",
                       ar->state,
-                      ar->AllowRemoteQuery ? "☠" : " ",
+                      /*ar->AllowRemoteQuery ? "☠" : " ",*/
+                      ar->AllowRemoteQuery ? "xxx" : " ",
                       ARDisplayString(&mDNSStorage, ar));
     }
     else
@@ -5550,7 +5557,8 @@ mDNSlocal void LogOneAuthRecord(const AuthRecord *ar, mDNSs32 now, const char *c
                       ar->TimeExpire    ? (ar->TimeExpire                      - now) / mDNSPlatformOneSecond : 0,
                       ifname ? ifname : "ALL",
                       ar->resrec.RecordType,
-                      ar->AllowRemoteQuery ? "☠" : " ",
+                      /*ar->AllowRemoteQuery ? "☠" : " ",*/
+                      ar->AllowRemoteQuery ? "xxx" : " ",
                       ARDisplayString(&mDNSStorage, ar), AnonInfoToString(ar->resrec.AnonInfo, anstr, sizeof(anstr)));
     }
 }
